@@ -15,6 +15,9 @@ RUN userdel -f www-data &&\
           --from=33:33 ${PUID}:${PGID} \
         /home/www-data
 
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.24
+
 # Install base extensions
 RUN apt-get update && apt-get install -yqq \
         apt-utils \
@@ -36,7 +39,7 @@ RUN apt-get update && apt-get install -yqq \
         vim \
         zip \
         unzip \
-    && pecl install mcrypt-1.0.4 xdebug-3.1.2 \
+    && pecl install mcrypt-1.0.1 xdebug-3.1.2 \
     && docker-php-ext-enable mcrypt xdebug \
     && docker-php-ext-configure intl \
     && docker-php-ext-configure zip \
@@ -44,9 +47,6 @@ RUN apt-get update && apt-get install -yqq \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install -j$(nproc) bcmath bz2 calendar dba exif gd gettext imap intl mysqli pcntl pgsql pspell \
         pdo_mysql pdo_pgsql shmop soap sockets sysvmsg sysvsem sysvshm zip
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.23
 
 # Copy xdebug configuration for remote debugging
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini

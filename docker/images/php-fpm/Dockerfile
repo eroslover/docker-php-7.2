@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -yqq \
         git \
         libbz2-dev \
         libc-client-dev \
+        libfontconfig \
         libfreetype6-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
@@ -34,6 +35,7 @@ RUN apt-get update && apt-get install -yqq \
         libpng-dev \
         libpspell-dev \
         libxml2-dev \
+        libxrender-dev \
         libzip-dev \
         nano \
         vim \
